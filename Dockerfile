@@ -2,6 +2,7 @@ FROM ghcr.io/promisc/toolchain-armhf:glibc_2_19
 
 # Deps from https://github.com/frida/frida-ci/blob/master/images/worker-ubuntu-20.04-x86_64/Dockerfile
 USER root
+WORKDIR /root
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential \
@@ -18,9 +19,7 @@ RUN apt-get update \
         python3-pip \
         python3-requests \
         python3-setuptools \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /home/builder \
-    && adduser --disabled-password --gecos '' builder
+    && rm -rf /var/lib/apt/lists/*
 
 USER builder
 WORKDIR /home/builder
@@ -33,11 +32,5 @@ ENV FRIDA_HOST=linux-armhf
 RUN sed -i 's,FRIDA_V8 ?= auto,FRIDA_V8 ?= disabled,' config.mk \
     && sed -i 's,host_arch_flags="-march=armv7-a",host_arch_flags="-march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16",g' releng/setup-env.sh
 
-RUN make -f Makefile.toolchain.mk
-# outputs: build/toolchain-linux-armhf.tar.bz2
-RUN make -f Makefile.sdk.mk
-# outputs: build/sdk-linux-armhf.tar.bz2
-
-RUN make core-linux-armhf
-# RUN make check-core-linux-armhf
-
+COPY build-log-error.sh /home/builder/frida/
+RUN build-log-error.sh
