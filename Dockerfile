@@ -18,7 +18,8 @@ RUN apt-get update \
 		python3-pip \
 		python3-requests \
 		python3-setuptools \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && adduser --disabled-password --gecos '' builder
 
 USER builder
 WORKDIR /home/builder
