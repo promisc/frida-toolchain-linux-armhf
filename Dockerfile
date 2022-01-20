@@ -4,21 +4,22 @@ FROM ghcr.io/promisc/toolchain-armhf:glibc_2_19
 USER root
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-		build-essential \
-		curl \
-		git \
-		lib32stdc++-9-dev \
-		libc6-dev-i386 \
-		libgl1-mesa-dev \
-		locales \
-		nodejs \
-		npm \
-		p7zip \
-		python3-dev \
-		python3-pip \
-		python3-requests \
-		python3-setuptools \
+        build-essential \
+        curl \
+        git \
+        lib32stdc++-9-dev \
+        libc6-dev-i386 \
+        libgl1-mesa-dev \
+        locales \
+        nodejs \
+        npm \
+        p7zip \
+        python3-dev \
+        python3-pip \
+        python3-requests \
+        python3-setuptools \
     && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /home/builder \
     && adduser --disabled-password --gecos '' builder
 
 USER builder
