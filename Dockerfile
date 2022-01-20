@@ -47,3 +47,4 @@ WORKDIR /home/builder
 COPY --from=frida-toolchain-builder --chown=builder:builder /home/builder/frida/build/toolchain-linux-armhf.tar.bz2 /home/builder/toolchain-linux-armhf.tar.bz2
 COPY --from=frida-toolchain-builder --chown=builder:builder /home/builder/frida/build/sdk-linux-armhf.tar.bz2 /home/builder/sdk-linux-armhf.tar.bz2
 COPY --from=frida-toolchain-builder --chown=builder:builder /home/builder/x-tools /home/builder/x-tools
+ENV PATH=${PATH}:/home/builder/x-tools/arm-linux-gnueabihf/bin
