@@ -1,2 +1,3 @@
 # frida-toolchain-linux-armhf
-Build the Frida toolchain using promisc/toolchain-armhf as the build image
+
+Using the toolchain from https://github.com/promisc/toolchain-armhf, build the Frida toolchain + SDK.
