@@ -43,6 +43,6 @@ RUN /home/builder/frida/log-on-error.sh make -f Makefile.sdk.mk
 FROM ubuntu:20.04 as final-frida-toolchain-image
 RUN adduser --disabled-password --gecos '' builder
 USER builder
-WORKDIR /home/builder/frida
+WORKDIR /home/builder
 COPY --from=frida-toolchain-builder --chown=builder:builder /home/builder/frida/build/toolchain-linux-armhf.tar.bz2 /home/builder/toolchain-linux-armhf.tar.bz2
 COPY --from=frida-toolchain-builder --chown=builder:builder /home/builder/frida/build/sdk-linux-armhf.tar.bz2 /home/builder/sdk-linux-armhf.tar.bz2
