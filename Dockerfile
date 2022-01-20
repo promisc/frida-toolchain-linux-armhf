@@ -33,4 +33,4 @@ RUN sed -i 's,FRIDA_V8 ?= auto,FRIDA_V8 ?= disabled,' config.mk \
     && sed -i 's,host_arch_flags="-march=armv7-a",host_arch_flags="-march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16",g' releng/setup-env.sh
 
 COPY build-log-error.sh /home/builder/frida/
-RUN build-log-error.sh
+RUN /home/builder/frida/build-log-error.sh
