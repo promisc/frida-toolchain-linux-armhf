@@ -1,7 +1,9 @@
 name: Docker
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  repository_dispatch:
+    types: [dep-change]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -56,3 +58,11 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:5b9d256f-glibc_2_19
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: promisc/frida-core-linux-armhf
+          event-type: dep-change
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
