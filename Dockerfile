@@ -30,8 +30,8 @@ WORKDIR /home/builder/frida
 RUN git checkout 5b9d256f645a2c76ccc2941ba7d1e67370143da0 \
     && git submodule update \
     && sed -i 's,FRIDA_V8 ?= auto,FRIDA_V8 ?= disabled,' config.mk \
-    && sed -i 's,host_arch_flags="-march=armv7-a",host_arch_flags="-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16",g' releng/setup-env.sh
-ENV FRIDA_HOST=linux-arm
+    && sed -i 's,host_arch_flags="-march=armv7-a",host_arch_flags="-march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16",g' releng/setup-env.sh
+ENV FRIDA_HOST=linux-armhf
 COPY --chown=builder:builder log-on-error.sh /home/builder/frida/
 
 FROM frida-builder as frida-toolchain-builder
